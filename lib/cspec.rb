@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'cspec/version'
 
 module CSpec
@@ -5,6 +7,7 @@ module CSpec
     def self.do_instance(spec)
       class_under_test = Object.const_get(spec[:class])
       instance_under_test = class_under_test.new(*spec[:initialize_params])
+      puts spec[:method_args]
       instance_under_test.send(spec[:method], *spec[:method_args])
     end
 
@@ -15,45 +18,66 @@ module CSpec
   end
 
   module DataType
-    def caster(result, cast_type)
-      if cast_type == 'Integer'
-        result.to_i
-      elsif cast_type == 'String'
-        result.to_s
-      elsif cast_type.nil?
-        result
+    def self.convert(input)
+      if input =~ /^\d+\.\d+$/
+        input.to_f
+      elsif input =~ /^\d+$/
+        input.to_i
+      elsif input =~ /^\[.*\]$/
+        eval(input)
+      elsif ['', nil, 'nil'].include?(input)
+        nil
       else
-        result
+        input.to_s
       end
     end
   end
 
+  class Result
+    attr_reader :name, :class, :method, :error, :description, :details
+
+    def initialize(name, klass, method, error, description, details)
+      @name = name
+      @error = error
+      @class = klass
+      @method = method
+      @description = description
+      @details = details
+    end
+
+    def ==(other)
+      name == other.name &&
+        self.class == other.class &&
+        method == other.method &&
+        error == other.error &&
+        description == other.description &&
+        details == other.details
+    end
+  end
+
   module Runner
-    def run(specs)
-      errors = []
-      successes = []
+    def self.run(specs)
+      results = []
       specs.each do |spec|
-        result = if spec[:type] == 'class'
-                   do_class(spec)
-                 elsif spec[:type] == 'instance'
-                   do_instance(spec)
+        result = case spec[:type]
+                 when 'class'
+                   ::CSpec::Executer.do_class(spec)
+                 when 'instance'
+                   ::CSpec::Executer.do_instance(spec)
                  end
 
-        result = caster(result, spec[:expected_type])
-        if result == spec[:expected]
-          successes << spec[:description]
-        else
-          errors << {
-            description: spec[:description],
-            details: "Expected #{spec[:expected]}, got: #{result}"
-          }
-        end
+        result = ::CSpec::DataType.convert(result)
+        results << if result == ::CSpec::DataType.convert(spec[:expected])
+                     Result.new(spec[:name], spec[:class], spec[:method], nil, spec[:description], nil)
+                   else
+                     puts 'here'
+                     Result.new(spec[:name], spec[:class], spec[:method],
+                                "Expected #{spec[:expected]}, got: #{result}", spec[:description], nil)
+                   end
       rescue StandardError => e
-        errors << {
-          description: spec[:description],
-          details: e.inspect
-        }
+        results << Result.new(spec[:name], spec[:class], spec[:method], e.inspect, spec[:description], nil)
       end
+      results
     end
   end
 end

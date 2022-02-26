@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe CSpec::Executer do
   before(:all) do
     class Calculator
