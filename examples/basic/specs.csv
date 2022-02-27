@@ -1,2 +1,2 @@
 class,name,type,method,expected
-MyClass,my test,instance,hello,worldsds
+MyClass,my test,instance,hello,world
