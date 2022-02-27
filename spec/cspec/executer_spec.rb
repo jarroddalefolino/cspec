@@ -1,34 +1,8 @@
 # frozen_string_literal: true
 
+require_relative 'test_classes'
+
 RSpec.describe CSpec::Executer do
-  before(:all) do
-    class Calculator
-      def initialize(starting_number)
-        @starting_number = starting_number
-      end
-
-      def add(amount)
-        @starting_number + amount
-      end
-
-      def add_more(amount, amount2)
-        @starting_number + amount + amount2
-      end
-    end
-
-    class CalculatorClass
-      def self.subtract(x, y)
-        x - y
-      end
-    end
-
-    class StringHelper
-      def self.letter_count(a)
-        a.size
-      end
-    end
-  end
-
   describe 'do_instance' do
     it 'one param' do
       result = CSpec::Executer.do_instance({

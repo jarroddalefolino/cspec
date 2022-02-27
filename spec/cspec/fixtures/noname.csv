@@ -1,0 +1,2 @@
+class,type,initialize_params_1,method,method_args_1,expected
+MyCalculator,instance,1,add,1,2
