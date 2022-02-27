@@ -87,10 +87,10 @@ module CSpec
 
         result = ::CSpec::DataType.convert(result)
         results << if result == ::CSpec::DataType.convert(spec[:expected])
-                     Result.new(spec[:name], spec[:class], spec[:method], nil, spec[:description], nil)
+                     Result.new(spec['name'], spec['class'], spec['method'], nil, spec['description'], nil)
                    else
-                     Result.new(spec[:name], spec[:class], spec[:method],
-                                "Expected #{spec[:expected]}, got: #{result}", spec[:description], nil)
+                     Result.new(spec['name'], spec['class'], spec['method'],
+                                "Expected #{spec[:expected]}, got: #{result}", spec['description'], nil)
                    end
       rescue StandardError => e
         results << Result.new(spec[:name], spec[:class], spec[:method], e.inspect, spec[:description], nil)
