@@ -1,6 +1,24 @@
 # frozen_string_literal: true
 
 RSpec.describe CSpec::Loader do
+  describe 'process_args' do
+    it 'merges all of the method args' do
+      result = CSpec::Loader.process_args(
+        {
+          'class' => 'MyClass', 'name' => 'my test',
+          'type' => 'instance', 'method' => 'greet',
+          'method_arg_1' => 'Bob', 'expected' => 'Hello, Bob'
+        }
+      )
+      expected = {
+        'class' => 'MyClass', 'name' => 'my test',
+        'type' => 'instance', 'method' => 'greet', 'method_arg_1' => 'Bob',
+        'method_args' => ['Bob'], 'expected' => 'Hello, Bob'
+      }
+      expect(result).to eq(expected)
+    end
+  end
+
   describe 'load' do
     it 'parses the csv into an array of hashes' do
       result = CSpec::Loader.load("#{Dir.pwd}/spec/cspec/fixtures/simple.csv")

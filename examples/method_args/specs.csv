@@ -1,0 +1,2 @@
+class,name,type,method,method_arg_1,expected
+MyClass,my test,instance,greet,Bob,"Hello, Bob"

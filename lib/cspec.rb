@@ -18,6 +18,14 @@ module CSpec
       ::CSV.open(filename, headers: :first_row).map(&:to_h)
     end
 
+    def self.process_args(spec)
+      method_arg_keys = spec.keys.select { |k| k.match?(/method_arg_\d+/) }
+      combined_method_args = method_arg_keys.inject([]) do |values, key|
+        values << spec[key]
+      end
+      spec.merge({ 'method_args' => combined_method_args })
+    end
+
     def self.validate(filename)
       errors = []
       headers = CSV.open(filename, &:readline)
@@ -60,7 +68,7 @@ module CSpec
   module Runner
     def self.run!(filepath)
       errors = Loader.validate(filepath)
-      if errors.size != 0
+      unless errors.empty?
         puts errors
         return false
       end
@@ -68,10 +76,10 @@ module CSpec
       results = run(specs)
 
       if CSpec::Result.success?(results)
-        return true
+        true
       else
         ResultsOutputter.display(results)
-        return false
+        false
       end
     end
 

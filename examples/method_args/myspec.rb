@@ -3,8 +3,8 @@
 require 'cspec'
 
 class MyClass
-  def hello
-    'world'
+  def greet(name)
+    "Hello, #{name}"
   end
 end
 
