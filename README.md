@@ -1,43 +1,34 @@
 # Cspec
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/cspec`. To experiment with that code, run `bin/console` for an interactive prompt.
+## Running test cases via CSV
 
-TODO: Delete this and the text above, and describe your gem
+The goal of this project is to have a centralised location where all specs can be run
 
-## Installation
+## Quick start
 
-Add this line to your application's Gemfile:
-
+* Add this to your `Gemfile`
 ```ruby
-gem 'cspec'
+  gem 'cspec'
+```
+* Create a CSV named `specs.csv` with the following spec
+```csv
+class,name,type,initialize_params_1,method,method_args_1,expected
+MyClass,my test,,hello,,world
+```
+* Create a file named `my_csv_specs.rb` to run the specs
+```ruby
+require 'cspec'
+
+# The implementation of the Ruby class being testedc
+class MyClass
+  def hello
+    'world'
+  end
+end
+
+# Running the specs
+result = CSpec::Runner.run!("#{Dir.pwd}/specs.csv")
+puts "Success: #{result}"
 ```
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install cspec
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/cspec. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the Cspec project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/cspec/blob/master/CODE_OF_CONDUCT.md).
+* Run with `ruby my_csv_specs.rb`

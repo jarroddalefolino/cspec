@@ -18,10 +18,10 @@ module CSpec
     def ==(other)
       name == other.name &&
         self.class == other.class &&
-        method == other.method &&
-        error == other.error &&
-        description == other.description &&
-        details == other.details
+        self.method == other.method &&
+        self.error == other.error &&
+        self.description == other.description &&
+        self.details == other.details
     end
 
     def to_s
