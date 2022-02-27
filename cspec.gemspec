@@ -11,8 +11,8 @@ Gem::Specification.new do |spec|
   spec.email         = ['jarrod.folino@coderacademy.edu.au']
 
   spec.summary       = 'CSV Spec'
-  spec.description = 'A testing framework to run unit tests via csv'
-  spec.homepage      = 'https://www.coderacadmeny.edu.au'
+  spec.description   = 'A testing framework to run unit tests via csv'
+  spec.homepage      = 'https://github.com/jarroddalefolino/cspec'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

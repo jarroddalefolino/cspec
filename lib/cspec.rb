@@ -32,7 +32,6 @@ module CSpec
     def self.do_instance(spec)
       class_under_test = Object.const_get(spec[:class])
       instance_under_test = class_under_test.new(*spec[:initialize_params])
-      puts spec[:method_args]
       instance_under_test.send(spec[:method], *spec[:method_args])
     end
 
@@ -68,10 +67,10 @@ module CSpec
       specs = Loader.load(filepath)
       results = run(specs)
 
-      ResultsOutputter.display(results)
       if CSpec::Result.success?(results)
         return true
       else
+        ResultsOutputter.display(results)
         return false
       end
     end
@@ -90,7 +89,6 @@ module CSpec
         results << if result == ::CSpec::DataType.convert(spec[:expected])
                      Result.new(spec[:name], spec[:class], spec[:method], nil, spec[:description], nil)
                    else
-                     puts 'here'
                      Result.new(spec[:name], spec[:class], spec[:method],
                                 "Expected #{spec[:expected]}, got: #{result}", spec[:description], nil)
                    end

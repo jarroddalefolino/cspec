@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    cspec (0.1.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  cspec
+
+BUNDLED WITH
+   1.17.2
