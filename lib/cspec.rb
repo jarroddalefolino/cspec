@@ -23,7 +23,14 @@ module CSpec
       combined_method_args = method_arg_keys.inject([]) do |values, key|
         values << spec[key]
       end
-      spec.merge({ 'method_args' => combined_method_args })
+      constructor_arg_keys = spec.keys.select { |k| k.match?(/initialization_arg_\d+/) }
+      combined_constructor_args = constructor_arg_keys.inject([]) do |values, key|
+        values << spec[key]
+      end
+      spec = spec.merge({
+                          'method_args' => combined_method_args,
+                          'initialization_args' => combined_constructor_args
+                        })
     end
 
     def self.validate(filename)
@@ -38,14 +45,14 @@ module CSpec
 
   module Executer
     def self.do_instance(spec)
-      class_under_test = Object.const_get(spec[:class])
-      instance_under_test = class_under_test.new(*spec[:initialize_params])
-      instance_under_test.send(spec[:method], *spec[:method_args])
+      class_under_test = Object.const_get(spec['class'])
+      instance_under_test = class_under_test.new(*spec['initialization_args'])
+      instance_under_test.send(spec['method'], *spec['method_args'])
     end
 
     def self.do_class(spec)
-      class_under_test = Object.const_get(spec[:class])
-      class_under_test.send(spec[:method], *spec[:method_args])
+      class_under_test = Object.const_get(spec['class'])
+      class_under_test.send(spec['method'], *spec['method_args'])
     end
   end
 

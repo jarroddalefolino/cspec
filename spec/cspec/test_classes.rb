@@ -15,13 +15,13 @@ class Calculator
 end
 
 class CalculatorClass
-  def self.subtract(x, y)
-    x - y
+  def self.subtract(num1, num2)
+    num1 - num2
   end
 end
 
 class StringHelper
-  def self.letter_count(a)
-    a.size
+  def self.letter_count(word)
+    word.size
   end
 end

@@ -13,7 +13,7 @@ RSpec.describe CSpec::Loader do
       expected = {
         'class' => 'MyClass', 'name' => 'my test',
         'type' => 'instance', 'method' => 'greet', 'method_arg_1' => 'Bob',
-        'method_args' => ['Bob'], 'expected' => 'Hello, Bob'
+        'method_args' => ['Bob'], 'expected' => 'Hello, Bob', 'initialization_args' => []
       }
       expect(result).to eq(expected)
     end
