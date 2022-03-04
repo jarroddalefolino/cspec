@@ -13,7 +13,8 @@ RSpec.describe CSpec::Loader do
       expected = {
         'class' => 'MyClass', 'name' => 'my test',
         'type' => 'instance', 'method' => 'greet', 'method_arg_1' => 'Bob',
-        'method_args' => ['Bob'], 'expected' => 'Hello, Bob', 'initialization_args' => []
+        'method_args' => ['Bob'], 'expected' => 'Hello, Bob',
+        'initialization_args' => []
       }
       expect(result).to eq(expected)
     end
@@ -22,8 +23,11 @@ RSpec.describe CSpec::Loader do
   describe 'load' do
     it 'parses the csv into an array of hashes' do
       result = CSpec::Loader.load("#{Dir.pwd}/spec/cspec/fixtures/simple.csv")
-      expect(result.first).to eq({ 'class' => 'MyCalculator', 'name' => 'test1', 'type' => 'instance',
-                                   'initialize_params_1' => '1', 'method' => 'add', 'method_args_1' => '1', 'expected' => '2' })
+      expected = { 'class' => 'MyCalculator', 'name' => 'test1',
+                   'type' => 'instance',
+                   'initialize_params_1' => '1', 'method' => 'add',
+                   'method_args_1' => '1', 'expected' => '2' }
+      expect(result.first).to eq(expected)
     end
 
     it 'validates the csv headers' do

@@ -8,6 +8,11 @@ module CSpec
       results.count { |r| !r.error.nil? }.zero?
     end
 
+    def self.from_spec(spec, error = nil)
+      Result.new(spec['name'], spec['class'], spec['method'],
+                 error, spec['description'], nil)
+    end
+
     def initialize(name, klass, method, error, description, details)
       @name = name
       @error = error
@@ -27,7 +32,8 @@ module CSpec
     end
 
     def to_s
-      "name: #{name}, class: #{self.class}, method: #{method}, error: #{error}, description: #{description}, details: #{details}"
+      "name: #{name}, class: #{self.class}, method: #{method}," \
+        " error: #{error}, description: #{description}, details: #{details}"
     end
   end
 end

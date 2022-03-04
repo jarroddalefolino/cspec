@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require 'cspec/version'
+require 'cspec/runner'
+require 'cspec/loader'
+require 'cspec/result'
+
 require 'csv'
-require_relative 'result'
 
 module CSpec
   module ResultsOutputter
@@ -10,36 +13,6 @@ module CSpec
       results.each do |r|
         puts r
       end
-    end
-  end
-
-  module Loader
-    def self.load(filename)
-      ::CSV.open(filename, headers: :first_row).map(&:to_h)
-    end
-
-    def self.process_args(spec)
-      method_arg_keys = spec.keys.select { |k| k.match?(/method_arg_\d+/) }
-      combined_method_args = method_arg_keys.inject([]) do |values, key|
-        values << spec[key]
-      end
-      constructor_arg_keys = spec.keys.select { |k| k.match?(/initialization_arg_\d+/) }
-      combined_constructor_args = constructor_arg_keys.inject([]) do |values, key|
-        values << spec[key]
-      end
-      spec = spec.merge({
-                          'method_args' => combined_method_args,
-                          'initialization_args' => combined_constructor_args
-                        })
-    end
-
-    def self.validate(filename)
-      errors = []
-      headers = CSV.open(filename, &:readline)
-      %w[class type name method expected].each do |required_header|
-        errors << "Need header: #{required_header}" unless headers.include?(required_header)
-      end
-      errors
     end
   end
 
@@ -54,63 +27,25 @@ module CSpec
       class_under_test = Object.const_get(spec['class'])
       class_under_test.send(spec['method'], *spec['method_args'])
     end
+
+    def self.do(spec)
+      case spec[:type]
+      when 'class'
+        do_class(spec)
+      when 'instance'
+        do_instance(spec)
+      end
+    end
   end
 
   module DataType
     def self.convert(input)
-      if input =~ /^\d+\.\d+$/
-        input.to_f
-      elsif input =~ /^\d+$/
-        input.to_i
-      elsif input =~ /^\[.*\]$/
-        eval(input)
-      elsif ['', nil, 'nil'].include?(input)
-        nil
-      else
-        input.to_s
-      end
-    end
-  end
+      return input.to_f if input =~ /^\d+\.\d+$/
+      return input.to_i if input =~ /^\d+$/
+      return eval(input) if input =~ /^\[.*\]$/
+      return nil if ['', nil, 'nil'].include?(input)
 
-  module Runner
-    def self.run!(filepath)
-      errors = Loader.validate(filepath)
-      unless errors.empty?
-        puts errors
-        return false
-      end
-      specs = Loader.load(filepath)
-      results = run(specs)
-
-      if CSpec::Result.success?(results)
-        true
-      else
-        ResultsOutputter.display(results)
-        false
-      end
-    end
-
-    def self.run(specs)
-      results = []
-      specs.each do |spec|
-        result = case spec[:type]
-                 when 'class'
-                   ::CSpec::Executer.do_class(spec)
-                 when 'instance'
-                   ::CSpec::Executer.do_instance(spec)
-                 end
-
-        result = ::CSpec::DataType.convert(result)
-        results << if result == ::CSpec::DataType.convert(spec[:expected])
-                     Result.new(spec['name'], spec['class'], spec['method'], nil, spec['description'], nil)
-                   else
-                     Result.new(spec['name'], spec['class'], spec['method'],
-                                "Expected #{spec[:expected]}, got: #{result}", spec['description'], nil)
-                   end
-      rescue StandardError => e
-        results << Result.new(spec[:name], spec[:class], spec[:method], e.inspect, spec[:description], nil)
-      end
-      results
+      input.to_s
     end
   end
 end
