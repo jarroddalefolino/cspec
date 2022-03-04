@@ -18,18 +18,14 @@ module CSpec
     end
 
     def self.run(specs)
-      results = []
-      specs.each do |spec|
+      specs.map do |spec|
         result = ::CSpec::DataType.convert(::CSpec::Executer.do(spec))
         expected = ::CSpec::DataType.convert(spec[:expected])
         error_msg = "Expected #{spec[:expected]}, got: #{result}" if result != expected
-        results << Result.from_spec(spec, error_msg)
-
+        Result.from_spec(spec, error_msg)
       rescue StandardError => e
-        results << Result.new(spec[:name], spec[:class], spec[:method],
-                              e.inspect, spec[:description], nil)
+        Result.from_spec(spec, e.inspect)
       end
-      results
     end
   end
 end

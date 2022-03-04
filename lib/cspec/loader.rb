@@ -7,25 +7,24 @@ module CSpec
     end
 
     def self.process_args(spec)
-      spec = process_arg(spec, /method_arg_\d+/, 'method_args')
-      process_arg(spec, /initialization_arg_\d+/, 'initialization_args')
+      process_arg(spec, /method_arg_\d+/, 'method_args').merge(
+        process_arg(spec, /initialization_arg_\d+/, 'initialization_args')
+      )
     end
 
     def self.process_arg(spec, regex, aggregate_key)
-      all_keys = spec.keys.select { |k| k.match?(regex) }
-      combined = all_keys.inject([]) do |values, key|
-        values << spec[key]
-      end
-      spec.merge({ aggregate_key => combined })
+      spec.merge({
+                   aggregate_key => spec.keys
+                 .select { |k| k.match?(regex) }
+                 .inject([]) { |values, key| values << spec[key] }
+                 })
     end
 
     def self.validate(filename)
-      errors = []
       headers = CSV.open(filename, &:readline)
-      %w[class type name method expected].each do |required_header|
-        errors << "Need header: #{required_header}" unless headers.include?(required_header)
-      end
-      errors
+      %w[class type name method expected].map do |required_header|
+        "Need header: #{required_header}" unless headers.include?(required_header)
+      end.reject(&:nil?)
     end
   end
 end
