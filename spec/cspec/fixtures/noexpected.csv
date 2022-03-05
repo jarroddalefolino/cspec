@@ -1,2 +1,2 @@
-class,name,type,initialize_params_1,method,method_args_1
+class,name,type,initialization_arg_1,method,method_arg_1
 MyCalculator,test1,instance,1,add,1

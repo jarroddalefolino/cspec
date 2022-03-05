@@ -3,7 +3,8 @@
 module CSpec
   module Loader
     def self.load(filename)
-      ::CSV.open(filename, headers: :first_row).map(&:to_h)
+      specs = ::CSV.open(filename, headers: :first_row).map(&:to_h)
+      specs.map { |spec| process_args(spec) }
     end
 
     def self.process_args(spec)

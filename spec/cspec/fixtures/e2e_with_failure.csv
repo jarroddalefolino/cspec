@@ -1,2 +1,2 @@
-class,name,type,initialize_params_1,method,method_args_1,expected
-MyCalculator,test1,instance,1,add,1,3
+class,name,type,initialization_arg_1,method,method_arg_1,expected
+Calculator,test1,instance,1,add,1,3

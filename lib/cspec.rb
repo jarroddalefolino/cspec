@@ -29,7 +29,7 @@ module CSpec
     end
 
     def self.do(spec)
-      case spec[:type]
+      case spec['type']
       when 'class'
         do_class(spec)
       when 'instance'
@@ -39,7 +39,13 @@ module CSpec
   end
 
   module DataType
+    def self.convert_all(inputs)
+      inputs.map { |input| convert(input) }
+    end
+
     def self.convert(input)
+      return input unless input.instance_of?(String)
+
       return input.to_f if input =~ /^\d+\.\d+$/
       return input.to_i if input =~ /^\d+$/
       return eval(input) if input =~ /^\[.*\]$/
