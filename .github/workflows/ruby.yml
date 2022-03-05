@@ -43,3 +43,6 @@ jobs:
     - name: Run Method Args Example
       working-directory: ./examples/method_args
       run: bundle install && bundle exec ruby myspec.rb
+    - name: Run Class Methods Example
+      working-directory: ./examples/class_methods
+      run: bundle install && bundle exec ruby myspec.rb  

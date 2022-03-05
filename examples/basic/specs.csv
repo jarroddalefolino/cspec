@@ -1,2 +1,2 @@
-class,name,type,method,expected
-MyClass,my test,instance,hello,world
+class,name,type,method,method_args_1,expected
+MyClass,my test,instance,hello,,world
