@@ -12,7 +12,7 @@ The goal of this project is to have a centralised location where all specs can b
 ```
 * Create a CSV named `specs.csv` with the following spec
 ```csv
-class,name,type,initialize_params_1,method,method_args_1,expected
+class,name,type,initialization_arg_1,method,method_arg_1,expected
 MyClass,my test,,hello,,world
 ```
 * Create a file named `my_csv_specs.rb` to run the specs
