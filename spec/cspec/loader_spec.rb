@@ -23,10 +23,10 @@ RSpec.describe CSpec::Loader do
   describe 'load' do
     it 'parses the csv into an array of hashes' do
       result = CSpec::Loader.load("#{Dir.pwd}/spec/cspec/fixtures/simple.csv")
-      expected = { 'class' => 'MyCalculator', 'name' => 'test1',
-                   'type' => 'instance', 'method_args' => ['1'], 'initialization_args' => ['1'],
-                   'initialization_arg_1' => '1', 'method' => 'add',
-                   'method_arg_1' => '1', 'expected' => '2' }
+      expected = ::CSpec::Spec.new({ 'class' => 'MyCalculator', 'name' => 'test1',
+                                     'type' => 'instance', 'method_args' => ['1'], 'initialization_args' => ['1'],
+                                     'initialization_arg_1' => '1', 'method' => 'add',
+                                     'method_arg_1' => '1', 'expected' => '2' })
       expect(result.first).to eq(expected)
     end
 

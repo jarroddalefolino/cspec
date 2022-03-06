@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
+require_relative 'spec'
+
 module CSpec
   module Loader
     def self.load(filename)
       specs = ::CSV.open(filename, headers: :first_row).map(&:to_h)
-      specs.map { |spec| process_args(spec) }
+      specs.map { |spec| ::CSpec::Spec.new(process_args(spec)) }
     end
 
     def self.process_args(spec)
@@ -23,9 +25,7 @@ module CSpec
 
     def self.validate(filename)
       headers = CSV.open(filename, &:readline)
-      %w[class type name method expected].map do |required_header|
-        "Need header: #{required_header}" unless headers.include?(required_header)
-      end.reject(&:nil?)
+      ::CSpec::Validator.validate(headers)
     end
   end
 end

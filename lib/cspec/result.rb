@@ -2,38 +2,29 @@
 
 module CSpec
   class Result
-    attr_reader :name, :class, :method, :error, :description, :details
+    attr_reader :spec, :error
 
     def self.success?(results)
       results.count { |r| !r.error.nil? }.zero?
     end
 
     def self.from_spec(spec, error = nil)
-      Result.new(spec['name'], spec['class'], spec['method'],
-                 error, spec['description'], nil)
+      Result.new(spec, error)
     end
 
-    def initialize(name, klass, method, error, description, details)
-      @name = name
+    def initialize(spec, error)
+      @spec = spec
       @error = error
-      @class = klass
-      @method = method
-      @description = description
-      @details = details
     end
 
     def ==(other)
-      name == other.name &&
-        self.class == other.class &&
-        method == other.method &&
-        error == other.error &&
-        description == other.description &&
-        details == other.details
+      error == other.error &&
+        spec == other.spec
     end
 
     def to_s
-      "name: #{name}, class: #{self.class}, method: #{method}," \
-        " error: #{error}, description: #{description}, details: #{details}"
+      "spec: #{spec}\n" \
+        "error: #{error}"
     end
   end
 end

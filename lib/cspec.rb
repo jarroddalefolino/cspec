@@ -4,54 +4,12 @@ require 'cspec/version'
 require 'cspec/runner'
 require 'cspec/loader'
 require 'cspec/result'
+require 'cspec/code_exec'
+require 'cspec/data_type'
+require 'cspec/validator'
+require 'cspec/results_outputter'
 
 require 'csv'
 
 module CSpec
-  module ResultsOutputter
-    def self.display(results)
-      results.each do |r|
-        puts r
-      end
-    end
-  end
-
-  module Executer
-    def self.do_instance(spec)
-      class_under_test = Object.const_get(spec['class'])
-      instance_under_test = class_under_test.new(*spec['initialization_args'])
-      instance_under_test.send(spec['method'], *spec['method_args'])
-    end
-
-    def self.do_class(spec)
-      class_under_test = Object.const_get(spec['class'])
-      class_under_test.send(spec['method'], *spec['method_args'])
-    end
-
-    def self.do(spec)
-      case spec['type']
-      when 'class'
-        do_class(spec)
-      when 'instance'
-        do_instance(spec)
-      end
-    end
-  end
-
-  module DataType
-    def self.convert_all(inputs)
-      inputs.map { |input| convert(input) }
-    end
-
-    def self.convert(input)
-      return input unless input.instance_of?(String)
-
-      return input.to_f if input =~ /^\d+\.\d+$/
-      return input.to_i if input =~ /^\d+$/
-      return eval(input) if input =~ /^\[.*\]$/
-      return nil if ['', nil, 'nil'].include?(input)
-
-      input.to_s
-    end
-  end
 end
