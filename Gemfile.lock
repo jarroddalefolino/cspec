@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cspec (0.1.5)
+    cspec (0.2.0)
 
 GEM
   remote: https://rubygems.org/
