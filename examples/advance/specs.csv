@@ -1,2 +1,2 @@
 class,name,type,method,method_arg_1,method_arg_2,expected
-MyClass,my test,instance,greent,Bob,Jones,"Hello, Bo Jones"
+MyClass,my test,instance,greet,Bob,Jones,"Hello, Bob Jones"

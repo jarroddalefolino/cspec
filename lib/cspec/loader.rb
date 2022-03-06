@@ -18,7 +18,7 @@ module CSpec
     def self.process_arg(spec, regex, aggregate_key)
       spec.merge({
                    aggregate_key => spec.keys
-                 .select { |k| k.match?(regex) }
+                 .select { |k| k.match?(regex) && !spec[k].nil? }
                  .inject([]) { |values, key| values << spec[key] }
                  })
     end

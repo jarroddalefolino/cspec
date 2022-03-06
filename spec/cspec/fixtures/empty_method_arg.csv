@@ -1,0 +1,2 @@
+class,name,type,initialization_arg_1,method,method_arg_1,expected
+Calculator,test1,instance,1,add,,2
