@@ -1,2 +1,6 @@
-class,name,type,method,method_arg_1,method_arg_2,expected
-MyClass,my test,instance,greet,Bob,Jones,"Hello, Bob Jones"
+class,name,type,method,method_arg_1,method_arg_2,method_arg_3,expected
+MyClass,my test,instance,greet,Bob,Jones,,"Hello, Bob Jones"
+Calculator,another test,class,add,1,2,,3
+Calculator,another test,class,multi_subtract,6,2,1,3
+Util,another test,instance,build_array,6,2,1,"[6, 2, 1]"
+Util,another test,instance,sum_array,"[6, 2, 1]",,,9

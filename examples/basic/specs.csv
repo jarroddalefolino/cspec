@@ -1,2 +1,12 @@
-class,name,type,method,expected
-MyClass,my test,instance,hello,world
+class,name,type,method,method_arg_1,expected
+MyClass,my test,instance,hello2,aaa,world2aaa
+MyClass,my test,instance,hello,,world
+MyClass,my test,instance,hello2,aaa,world2aaa
+MyClass,my test,instance,hello,,world
+MyClass,my test,instance,hello2,aaa,world2aaa
+MyClass,my test,instance,hello,,world
+MyClass,my test,instance,hello2,aaa,world2aaa
+MyClass,my test,instance,hello,,world
+MyClass,my test,instance,hello2,aaa,world2aaa
+MyClass,my test,instance,hello,,world
+
