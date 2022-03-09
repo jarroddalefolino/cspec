@@ -23,9 +23,9 @@ module CSpec
                  })
     end
 
-    def self.validate(filename)
+    def self.validate_structure(filename)
       headers = CSV.open(filename, &:readline)
-      ::CSpec::Validator.validate(headers)
+      ::CSpec::Validator.validate_structure(headers)
     end
   end
 end

@@ -23,7 +23,7 @@ module CSpec
     end
 
     def to_s
-      "spec: #{spec}\n" \
+      "#{spec}, " \
         "error: #{error}"
     end
   end

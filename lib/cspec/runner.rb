@@ -3,12 +3,11 @@
 module CSpec
   module Runner
     def self.run!(filepath)
-      errors = Loader.validate(filepath)
-      unless errors.empty?
-        puts errors
-        return false
-      end
+      return false if process_errors(Loader.validate_structure(filepath))
+
       specs = Loader.load(filepath)
+      return false if process_errors(::CSpec::Validator.validate_specs(specs))
+
       results = run(specs)
 
       return true if CSpec::Result.success?(results)
@@ -26,6 +25,11 @@ module CSpec
       rescue StandardError => e
         Result.from_spec(spec, e.inspect)
       end
+    end
+
+    def self.process_errors(errors)
+      puts errors unless errors.empty?
+      !errors.empty?
     end
   end
 end

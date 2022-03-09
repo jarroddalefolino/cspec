@@ -30,7 +30,7 @@ module CSpec
     end
 
     def to_s
-      "name: #{name}, class: #{self.class}, method: #{method},"
+      "name: #{name}, class: #{self.class}, method: #{method}, method_args: #{method_args}"
     end
   end
 end
