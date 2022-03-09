@@ -29,6 +29,14 @@ module CSpec
         initialization_args == other.initialization_args
     end
 
+    def error
+      return "#{self.class} does not exist" unless Object.const_defined?(self.class)
+
+      return "#{type} method: #{method} does not exist" unless Object.const_get(self.class).method_defined?(method)
+
+      nil
+    end
+
     def to_s
       "name: #{name}, class: #{self.class}, method: #{method}, method_args: #{method_args}"
     end

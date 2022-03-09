@@ -9,9 +9,7 @@ module CSpec
     end
 
     def self.validate_specs(specs)
-      specs.map do |spec|
-        Object.const_defined?(spec.class) ? nil : "#{spec.class} does not exist"
-      end.reject(&:nil?)
+      specs.map(&:error).reject(&:nil?)
     end
   end
 end
