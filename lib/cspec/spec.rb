@@ -30,15 +30,35 @@ module CSpec
     end
 
     def error
-      return "#{self.class} does not exist" unless Object.const_defined?(self.class)
+      return ["#{self.class} does not exist"] unless Object.const_defined?(self.class)
 
-      return "#{type} method: #{method} does not exist" unless Object.const_get(self.class).method_defined?(method)
+      errors = []
 
-      nil
+      errors += send("#{type}_errors")
+
+      errors.size.positive? ? errors.flatten : nil
     end
 
     def to_s
       "name: #{name}, class: #{self.class}, method: #{method}, method_args: #{method_args}"
+    end
+
+    private
+
+    def class_errors
+      if Object.const_get(self.class).respond_to?(method.to_sym)
+        []
+      else
+        ["#{type} method: #{self.class}##{method} does not exist"]
+      end
+    end
+
+    def instance_errors
+      if !Object.const_get(self.class)&.method_defined?(method.to_sym)
+        ["#{type} method: #{self.class}##{method} does not exist"]
+      else
+        []
+      end
     end
   end
 end

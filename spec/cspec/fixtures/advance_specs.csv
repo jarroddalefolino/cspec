@@ -1,0 +1,2 @@
+class,name,type,method,method_arg_1,method_arg_2,method_arg_3,expected
+Calculator,test 3,class,multi_subtract,6,2,1,3

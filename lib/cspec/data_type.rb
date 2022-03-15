@@ -2,6 +2,16 @@
 
 module CSpec
   module DataType
+    MATCHERS = [
+      { condition: /^\d+\.\d+$/, proc: proc { |input| input.to_f } },
+      { condition: /^\d+$/, proc: proc { |input| input.to_i } },
+      { condition: /true/, proc: proc { true } },
+      { condition: /^\[.*\]$/, proc: proc { |input| eval(input) } },
+      { condition: /false/, proc: proc { false } },
+      { condition: /nil/, proc: proc { nil } },
+      { condition: /^$/, proc: proc { nil } }
+    ].freeze
+
     def self.convert_all(inputs)
       return nil unless inputs
 
@@ -12,10 +22,9 @@ module CSpec
       return input unless input.instance_of?(String)
 
       input = input.strip
-      return input.to_f if input =~ /^\d+\.\d+$/
-      return input.to_i if input =~ /^\d+$/
-      return eval(input) if input =~ /^\[.*\]$/
-      return nil if ['', nil, 'nil'].include?(input)
+      MATCHERS.each do |matcher|
+        return matcher[:proc].call(input) if input.match?(matcher[:condition])
+      end
 
       input.to_s
     end

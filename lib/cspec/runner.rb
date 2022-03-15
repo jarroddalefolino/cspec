@@ -12,6 +12,8 @@ module CSpec
 
       return true if CSpec::Result.success?(results)
 
+      puts results.inspect
+      puts '#######################'
       ResultsOutputter.display(results)
       false
     end

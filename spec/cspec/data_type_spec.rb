@@ -20,6 +20,14 @@ RSpec.describe CSpec::DataType do
       expect(result).to eq(1.0)
     end
 
+    it 'converts a false string' do
+      expect(CSpec::DataType.convert('false')).to eq(false)
+    end
+
+    it 'converts a true string' do
+      expect(CSpec::DataType.convert('true')).to eq(true)
+    end
+
     it 'converts a string' do
       expect(CSpec::DataType.convert('hello').class).to eq(String)
     end

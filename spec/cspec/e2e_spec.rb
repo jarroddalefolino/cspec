@@ -13,5 +13,10 @@ RSpec.describe CSpec::Runner do
       result = CSpec::Runner.run!("#{Dir.pwd}/spec/cspec/fixtures/e2e_with_failure.csv")
       expect(result).to eq(false)
     end
+
+    it 'processes all of the csv test cases (advance)' do
+      result = CSpec::Runner.run!("#{Dir.pwd}/spec/cspec/fixtures/advance_specs.csv")
+      expect(result).to eq(true)
+    end
   end
 end

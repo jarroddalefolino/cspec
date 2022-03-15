@@ -7,8 +7,8 @@ class MyClass
     'world'
   end
 
-  def hello2(param1)
-    "world2#{param1}"
+  def ok?
+    true
   end
 end
 

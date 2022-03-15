@@ -26,7 +26,7 @@ RSpec.describe CSpec::Validator do
 
     it 'returns an error if the class exists but does not have defined instance method' do
       spec = ::CSpec::Spec.new(get_spec({ 'method' => 'meow' }))
-      expect(CSpec::Validator.validate_specs([spec])).to eq(['instance method: meow does not exist'])
+      expect(CSpec::Validator.validate_specs([spec])).to eq(['instance method: Object#meow does not exist'])
     end
 
     it 'returns an error if the class exists but does not have defined class method' do
@@ -36,7 +36,7 @@ RSpec.describe CSpec::Validator do
                    'method' => 'meow'
                  })
       )
-      expect(CSpec::Validator.validate_specs([spec])).to eq(['class method: meow does not exist'])
+      expect(CSpec::Validator.validate_specs([spec])).to eq(['class method: Object#meow does not exist'])
     end
   end
 end

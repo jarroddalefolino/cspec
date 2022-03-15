@@ -9,7 +9,7 @@ module CSpec
     end
 
     def self.validate_specs(specs)
-      specs.map(&:error).reject(&:nil?)
+      specs.map(&:error).reject(&:nil?).flatten
     end
   end
 end
