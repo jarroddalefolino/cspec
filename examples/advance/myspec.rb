@@ -29,5 +29,5 @@ class Calculator
 end
 
 result = CSpec::Runner.run!("#{Dir.pwd}/specs.csv")
-puts "Success: #{result}"
+
 exit result ? 0 : 1

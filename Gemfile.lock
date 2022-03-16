@@ -1,12 +1,14 @@
 PATH
   remote: .
   specs:
-    cspec (0.2.5)
+    cspec (0.2.6)
+      colorize (~> 0.8.1)
 
 GEM
   remote: https://rubygems.org/
   specs:
     coderay (1.1.3)
+    colorize (0.8.1)
     diff-lcs (1.5.0)
     docile (1.4.0)
     method_source (1.0.0)

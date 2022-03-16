@@ -3,9 +3,7 @@
 module CSpec
   module ResultsOutputter
     def self.display(results)
-      results.each do |r|
-        puts r
-      end
+      results.map(&:to_s).join("\n")
     end
   end
 end

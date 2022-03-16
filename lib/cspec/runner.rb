@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'colorize'
+
 module CSpec
   module Runner
     def self.run!(filepath)
@@ -8,14 +10,20 @@ module CSpec
       specs = Loader.load(filepath)
       return false if process_errors(::CSpec::Validator.validate_specs(specs))
 
-      results = run(specs)
+      success = CSpec::Result.success?(results = run(specs))
 
-      return true if CSpec::Result.success?(results)
+      present_result(success, results)
+    end
 
-      puts results.inspect
-      puts '#######################'
-      ResultsOutputter.display(results)
-      false
+    def self.present_result(success, results)
+      if success
+        puts 'Success'.green
+        true
+      else
+        puts 'Failure'.red
+        puts ResultsOutputter.display(results).red
+        false
+      end
     end
 
     def self.run(specs)
