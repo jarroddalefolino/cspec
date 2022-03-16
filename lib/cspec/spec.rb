@@ -21,12 +21,12 @@ module CSpec
     end
 
     def ==(other)
-      name == other.name &&
-        self.class == other.class &&
-        method == other.method &&
-        type == other.type &&
-        method_args == other.method_args &&
-        initialization_args == other.initialization_args
+      name == other&.name &&
+        self.class == other&.class &&
+        method == other&.method &&
+        type == other&.type &&
+        method_args == other&.method_args &&
+        initialization_args == other&.initialization_args
     end
 
     def error

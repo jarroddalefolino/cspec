@@ -2,7 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     colorize (0.8.1)
-    cspec (0.2.6)
+    cspec (0.2.7)
       colorize (~> 0.8.1)
 
 PLATFORMS

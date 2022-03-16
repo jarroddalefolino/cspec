@@ -28,13 +28,9 @@ RSpec.describe CSpec::Loader do
   end
 
   describe 'load' do
-    it 'ignores empty method args' do
-    end
-
     it 'parses the csv into an array of hashes' do
-      result = CSpec::Loader.load("#{Dir.pwd}/spec/cspec/fixtures/empty_method_arg.csv")
-      expected = example
-      expect(result.first).to eq(expected)
+      specs = CSpec::Loader.load("#{Dir.pwd}/spec/cspec/fixtures/empty_method_arg.csv")
+      expect(specs.first.name).to eq('test1')
     end
 
     it 'validates the csv headers' do

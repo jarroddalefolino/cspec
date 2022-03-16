@@ -3,7 +3,7 @@
 module CSpec
   module ResultsOutputter
     def self.display(results)
-      results.map(&:to_s).join("\n")
+      results.reject { |r| r.error.nil? }.map(&:to_s).join("\n")
     end
   end
 end
