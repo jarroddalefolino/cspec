@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'bundler/setup'
+require 'fileutils'
+require 'cspec'
+
+USAGE = "\n  Usage:\n\n  cspec template list\n  cspec generate <template name>\n"
+
+command = ARGV[0]
+sub_command = ARGV[1]
+
+case command
+when 'template'
+  if sub_command == 'list'
+    dir = File.join(CSpec.root, 'examples')
+    Dir.chdir(dir)
+    result = Dir.glob('*').select do |f|
+      File.directory?(f)
+    end
+    puts result
+  end
+when 'generate'
+  puts "Generating from template: #{sub_command}"
+  example_dir = File.join(CSpec.root, 'examples', sub_command)
+  FileUtils.cp_r(example_dir, '.')
+  puts "cd into the #{sub_command} directory"
+else
+  puts USAGE
+end

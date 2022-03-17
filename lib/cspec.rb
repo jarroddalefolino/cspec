@@ -12,4 +12,7 @@ require 'cspec/results_outputter'
 require 'csv'
 
 module CSpec
+  def self.root
+    File.dirname __dir__
+  end
 end

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cspec (0.2.7)
+    cspec (0.2.8)
       colorize (~> 0.8.1)
 
 GEM
