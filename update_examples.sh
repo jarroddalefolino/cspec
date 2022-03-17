@@ -8,3 +8,5 @@ cd "$WORK_DIR/examples/class_methods"
 bundle update
 cd "$WORK_DIR/examples/method_args"
 bundle update
+cd "$WORK_DIR/examples/full"
+bundle update

@@ -42,4 +42,7 @@ jobs:
       run: bundle install && bundle exec ruby myspec.rb
     - name: Run Class Methods Example
       working-directory: ./examples/class_methods
-      run: bundle install && bundle exec ruby myspec.rb  
+      run: bundle install && bundle exec ruby myspec.rb
+    - name: Run Full Example
+      working-directory: ./examples/full
+      run: bundle install && bundle exec ruby myspec.rb    
