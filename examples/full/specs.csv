@@ -1,7 +1,8 @@
 class,name,type,method,initialization_arg_1,method_arg_1,method_arg_2,method_arg_3,expected
 StringUtil,string concatonation 1,instance,greet,,Bob,,,"Hello, Bob"
 NumberUtil,if statement 1.1,instance,largest,,1,2,,2
-NumberUtil,if statement 1.1,instance,largest,,3,2,,3
+NumberUtil,if statement 1.2,instance,largest,,3,2,,3
+NumberUtil,if statement 1.2,instance,largest,,-3,2,,2
 NumberUtil,while statement 1.1,instance,sum_number_range,,1,3,,6
 NumberUtil,while statement 1.2,instance,sum_number_range,,1,7,,28
 NumberUtil,while statement 1.3,instance,sum_number_range,,0,7,,28

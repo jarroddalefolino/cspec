@@ -2,44 +2,27 @@
 
 RSpec.describe CSpec::DataType do
   describe 'convert' do
-    it 'converts a string into an Integer' do
-      expect(CSpec::DataType.convert('1').class).to eq(Integer)
-    end
-
-    it 'converts a string with whitespace into an Integer' do
-      expect(CSpec::DataType.convert(' 1 ').class).to eq(Integer)
-    end
-
-    it 'converts a float' do
-      expect(CSpec::DataType.convert('1.0').class).to eq(Float)
-    end
-
-    it 'converts a float with whitespace' do
-      result = CSpec::DataType.convert(' 1.0 ')
-      expect(result.class).to eq(Float)
-      expect(result).to eq(1.0)
-    end
-
-    it 'converts a false string' do
-      expect(CSpec::DataType.convert('false')).to eq(false)
-    end
-
-    it 'converts a true string' do
-      expect(CSpec::DataType.convert('true')).to eq(true)
-    end
-
-    it 'converts a string' do
-      expect(CSpec::DataType.convert('hello').class).to eq(String)
-    end
-
-    it 'strips trailing and leading whitespace' do
-      result = CSpec::DataType.convert(' hello ')
-      expect(result.class).to eq(String)
-      expect(result).to eq('hello')
-    end
-
-    it 'converts a blank string to a nil' do
-      expect(CSpec::DataType.convert('').class).to eq(NilClass)
+    [
+      { input: '1', expected: 1 },
+      { input: '-1', expected: -1 },
+      { input: '  1  ', expected: 1 },
+      { input: '  1.0  ', expected: 1.0 },
+      { input: '-1.901', expected: -1.901 },
+      { input: '  1.901  ', expected: 1.901 },
+      { input: '  false  ', expected: false },
+      { input: 'false', expected: false },
+      { input: '  true  ', expected: true },
+      { input: 'true', expected: true },
+      { input: 1, expected: 1 },
+      { input: '["a", "b"]', expected: %w[a b] },
+      { input: 'nil', expected: nil },
+      { input: '', expected: nil },
+      { input: '    ', expected: nil }
+    ].each do |tc|
+      it "converts a string into an #{tc[:expected].class}" do
+        result = CSpec::DataType.convert(tc[:input])
+        expect(result).to eq(tc[:expected])
+      end
     end
 
     it 'converts a nil string to a nil' do
@@ -48,16 +31,6 @@ RSpec.describe CSpec::DataType do
 
     it 'converts a whitespace string to a nil' do
       expect(CSpec::DataType.convert('   ').class).to eq(NilClass)
-    end
-
-    it 'converts an array of stings' do
-      result = CSpec::DataType.convert('["a", "b"]')
-      expect(result.class).to eq(Array)
-      expect(result).to eq(%w[a b])
-    end
-
-    it 'does not convert an integer' do
-      expect(CSpec::DataType.convert(1).class).to eq(Integer)
     end
   end
 end

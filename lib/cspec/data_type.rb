@@ -3,8 +3,8 @@
 module CSpec
   module DataType
     MATCHERS = [
-      { condition: /^\d+\.\d+$/, proc: proc { |input| input.to_f } },
-      { condition: /^\d+$/, proc: proc { |input| input.to_i } },
+      { condition: /^-?\d+\.\d+$/, proc: proc { |input| input.to_f } },
+      { condition: /^-?\d+$/, proc: proc { |input| input.to_i } },
       { condition: /true/, proc: proc { true } },
       { condition: /^\[.*\]$/, proc: proc { |input| eval(input) } },
       { condition: /false/, proc: proc { false } },
