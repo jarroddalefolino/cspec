@@ -1,0 +1,14 @@
+
+Metrics/AbcSize:
+  Max: 20
+Metrics/CyclomaticComplexity:
+  Max: 11
+Metrics/MethodLength:
+  Max: 13
+Metrics/PerceivedComplexity:
+  Max: 12
+Style/Documentation:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+    - 'myspec.rb'
