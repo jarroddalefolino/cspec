@@ -6,7 +6,13 @@ NumberUtil,if statement 1.2,instance,largest,,-3,2,,2
 NumberUtil,while statement 1.1,instance,sum_number_range,,1,3,,6
 NumberUtil,while statement 1.2,instance,sum_number_range,,1,7,,28
 NumberUtil,while statement 1.3,instance,sum_number_range,,0,7,,28
+NumberUtil,kind of 1.1,instance,integer?,,1,,,true
+NumberUtil,kind of 1.2,instance,integer?,,1.0,,,false
+NumberUtil,kind of 1.3,instance,integer?,,"hello",,,false
+NumberUtil,kind of 1.4,instance,integer?,,[],,,false
+NumberUtil,parrallel assignment 1,instance,double_numbers,,1,2,3,12
 CokeMachine,initialization arg 1,instance,inventory_amount,45,,,,45
+CokeMachine,constants 1,instance,slogan,12,,,,"Always Coca-Cola"
 GradingMachine,if statement 2.1,instance,pass?,,45,,,true
 GradingMachine,if statement 2.2,instance,pass?,,44,,,false
 GradingMachine,if elsif else statement (boundary) 1.1.1,instance,grade,,90,,,A

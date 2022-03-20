@@ -46,3 +46,6 @@ jobs:
     - name: Run Full Example
       working-directory: ./examples/full
       run: bundle install && bundle exec ruby myspec.rb    
+    - name: Run Number Guessing Game Example
+      working-directory: ./examples/apps/number_guessing_game
+      run: bundle install && bundle exec ruby myspec.rb      
